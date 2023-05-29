@@ -44,3 +44,19 @@ def edit_item(request, item_id):
     }
     return render(request, 'todo/edit_item.html', context)
 
+
+def toggle_item(reqest, item_id):
+    # get the item copy from the db
+    item = get_object_or_404(Item, id=item_id)
+
+    item.done = not item.done
+    item.save()
+    return redirect('get_todo_list')
+
+
+def delete_item(reqest, item_id):
+    # get the item copy from the db
+    item = get_object_or_404(Item, id=item_id)
+    
+    item.delete()
+    return redirect('get_todo_list')
